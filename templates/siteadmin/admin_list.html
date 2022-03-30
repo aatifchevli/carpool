@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>firstname</th>
+                <th>lastname</th>
+                <th>emailid</th>
+                <th>password</th>
+
+            <tbody>
+                {%for i in data %}
+                <tr>
+                <td>{{i.emailid}}</td>
+                <td>{{i.password}}</td>
+               <td><a href="{% url 'siteadmin_update' i.id %}">Update</a>>
+                   <a href="{% url 'delete_admin' i.id %}">Delete</a>
+               </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </thead>
+    </table>
+</body>
+</html>
