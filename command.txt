@@ -7,3 +7,5 @@ git push -u origin master
 to install dependecy
 
 pip install -r requirements.txt
+
+edited
