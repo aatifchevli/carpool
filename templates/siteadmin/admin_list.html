@@ -9,20 +9,24 @@
     <table>
         <thead>
             <tr>
-                <th>firstname</th>
-                <th>lastname</th>
-                <th>emailid</th>
-                <th>password</th>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Mobile_No.</th>
+                <th>Address</th>
+                <th>city</th>
+                <th>state</th>
+                <th>pincode</th>
 
             <tbody>
-                {%for i in data %}
+                {%for i in admin_list %}
                 <tr>
-                <td>{{i.emailid}}</td>
-                <td>{{i.password}}</td>
-               <td><a href="{% url 'siteadmin_update' i.id %}">Update</a>>
-                   <a href="{% url 'delete_admin' i.id %}">Delete</a>
-               </td>
-            </tr>
+                <td>{{i.email}}</td>
+                <td>{{i.mobile_no}}</td>
+                <td>{{i.Address}}</td>
+                <td>{{i.City}}</td>
+                <td>{{i.State}}</td>
+                <td>{{i.Pincode}}</td>
+                </tr>
             {% endfor %}
             </tbody>
         </thead>

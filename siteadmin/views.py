@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from poolhost import *
-from .models import vehicle_register
-from .models import admin_register
-from .models import Vehicle_Type
+from poolhost.models import vehicle_register
+from siteadmin.models import Vehicle_Type
+from accounts.models import User
+from accounts.forms import *
 
 # def index(request)
 #     return render(request, template_name)
@@ -28,8 +29,8 @@ def createsiteadmin(request):
     return render(request, 'Create_admin.html', {'form': form})
 
 def admin_list(request):
-    data = admin_register.objects.all()
-    return render(request, 'admin_list.html',{'data':data})
+    data = User.objects.filter(is_superadmin=True)
+    return render(request, 'siteadmin/admin_list.html',{'data':data})
 
     
 def siteadmin_update(request, id):
@@ -41,12 +42,13 @@ def siteadmin_update(request, id):
         return redirect("admin_list")
     else:
         print(form.errors)
-    return render(request, 'create_admin.html', {'form': form, 'instance': instance})
+        return render(request, 'create_admin.html', {'form': form, 'instance': instance})
 
 
 def delete_admin(request, id):
-    admin_register.objects.get(id=id).delete()
-    return redirect("admin_list")
+    if user .is_siteadmin(True):
+        admin_register.objects.get(id=id).delete()
+        return redirect("admin_list")
 
 
     def index(request):
@@ -90,8 +92,9 @@ def poolhost_update(request, id):
 
 
 def delete_host(request, id):
-    vehicle_register.objects.get(id=id).delete()
-    return redirect("host_list")
+    if user .is_host(True):
+        vehicle_register.objects.get(id=id).delete()
+        return redirect("host_list")
 
 
 def index(request):

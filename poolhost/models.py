@@ -19,7 +19,7 @@ class vehicle_register(models.Model):
     capacity = models.CharField(max_length=2, validators=[
                                  RegexValidator(r'^\d{2}$')])
     fuel_capacity = models.CharField(max_length=2)
-    
+    status = models.CharField(max_length=10,default='pending')
 
 
 
