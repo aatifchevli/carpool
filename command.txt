@@ -8,4 +8,4 @@ to install dependecy
 
 pip install -r requirements.txt
 
-edited
+git pull origin master
