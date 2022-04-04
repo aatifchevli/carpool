@@ -6,5 +6,5 @@ from accounts.form import UserRegisterForm
 
 class SiteAdmin(forms.ModelForm):
     class Meta:
-        modle = Registration_Form
-        fields = ('firstname','lastname','emalid','password','address','gender',) 
+        model = Registration_Form
+        fields = ('firstname','lastname','emailid','password','address','gender',)             

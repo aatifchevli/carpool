@@ -22,6 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     path('', include('accounts.urls')),
-    path('create_host',include('poolhost.urls')),
+    path('poolhost/',include('poolhost.urls')),
     path('siteadmin/', include('siteadmin.urls')),
 ] 

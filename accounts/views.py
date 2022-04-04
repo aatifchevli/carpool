@@ -51,4 +51,4 @@ def superuser_register(request):
             return HttpResponse(form.errors)
     else:
         form = UserRegisterForm()
-        return render(request, 'accounts/user_register.html', {'form': form})
+        return render(request, 'accounts/superuser_register.html', {'form': form})

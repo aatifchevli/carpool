@@ -10,7 +10,7 @@ from accounts.forms import *
 #     return render(request, template_name)
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'siteadmin/index.html')
 
 def createsiteadmin(request):
     if request.method == 'POST':
@@ -51,9 +51,6 @@ def delete_admin(request, id):
         return redirect("admin_list")
 
 
-    def index(request):
-        return render(request, 'index.html')
-
 
 def create_host(request):
     if request.method == 'POST':
@@ -68,8 +65,7 @@ def create_host(request):
             print(form.errors)
             return HttpResponse("Error")
     else:
-        form = VehicleRegisterForm()
-    return render(request, 'create_host.html', {'form': form})
+        return render(request, 'siteadmin/create_host.html')
 
 
 def host_list(request):
@@ -97,24 +93,21 @@ def delete_host(request, id):
         return redirect("host_list")
 
 
-def index(request):
-    return redirect(request,'index.html')
+def create_user(request):
+    if request.method == 'POST':
+        form = PoolUserForm(request.POST, request.FILES)
 
-    def create_user(request):
-        if request.method == 'POST':
-            form = PoolUserForm(request.POST, request.FILES)
-
-            if form.is_valid(pooluser=True):
-                data = form.save(commit=False)
-                data.user = request.user
-                data.save()
-                return redirect("user_list")
-            else:
-                print(form.errors)
-                return HttpResponse("Error")
+        if form.is_valid(pooluser=True):
+            data = form.save(commit=False)
+            data.user = request.user
+            data.save()
+            return redirect("user_list")
         else:
-            form = PoolUserForm()
-            return render(request, 'create_user.html', {'form': form})
+            print(form.errors)
+            return HttpResponse("Error")
+    else:
+        form = PoolUserForm()
+        return render(request, 'create_user.html', {'form': form})
 
 
 def user_list(request):
