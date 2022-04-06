@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import *
-from .models import vehicle_register
+from .models import *
 # Create your views here.
 
 
 def index(request):
-    return render(request, 'index.html')
+     return render(request, 'poolhost/index.html')
 
 
-def create_host(request):
+def vehicle_register(request):
     if request.method == 'POST':
         form = VehicleRegisterForm(request.POST, request.FILES)
 
@@ -17,13 +17,13 @@ def create_host(request):
             data = form.save(commit=False)
             data.user = request.user
             data.save()
-            return redirect("host_list")
+            return redirect("poolhost:index")
         else:
             print(form.errors)
             return HttpResponse("Error")
     else:
         form = VehicleRegisterForm()
-    return render(request, 'create_host.html', {'form': form})
+    return render(request, 'poolhost/vehicle_register.html', {'form': form})
 
 
 def host_list(request):
