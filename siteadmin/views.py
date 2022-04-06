@@ -5,6 +5,7 @@ from poolhost.models import vehicle_register
 from siteadmin.models import Vehicle_Type
 from accounts.models import User
 from accounts.forms import *
+from .forms import UserRegisterForm
 
 # def index(request)
 #     return render(request, template_name)
@@ -65,7 +66,8 @@ def create_host(request):
             print(form.errors)
             return HttpResponse("Error")
     else:
-        return render(request, 'siteadmin/create_host.html')
+        form = VehicleRegisterForm()
+    return render(request, 'create_host.html', {'form': form})
 
 
 def host_list(request):
@@ -129,4 +131,42 @@ def pooluser_update(request, id):
 def delete_user(request, id):
     user_register.objects.get(id=id).delete()
     return redirect("user_list")
-    
+
+
+
+def create_siteadmin(request):
+    if request.method == 'POST':
+        forms = UserRegisterForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_superadmin = True
+            user.set_password(request.POST.get('password'))
+            user.save()
+
+            return redirect('siteadmin:index')
+        else:
+            print(forms.errors)
+            return redirect('siteadmin:index')
+    else:
+        form = UserRegisterForm()
+        return render(request, 'siteadmin/create_siteadmin.html', {'form': form})
+
+
+def create_poolhost(request):
+    if request.method == 'POST':
+        forms = UserRegisterForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_poolhost = True
+            user.set_password(request.POST.get('password'))
+            user.save()
+
+            return redirect('siteadmin:index')
+        else:
+            print(forms.errors)
+            return redirect('siteadmin:index')
+    else:
+        form = UserRegisterForm()
+        return render(request, 'siteadmin/create_poolhost.html', {'form': form})
