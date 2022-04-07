@@ -48,3 +48,36 @@ def poolhost_update(request, id):
 def delete_host(request, id):
     vehicle_register.objects.get(id=id).delete()
     return redirect("host_list")
+
+def VehicleType(request):
+    if request.method == 'POST':
+        form = Vehicle_Type(request.POST, request.FILES)
+
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user = request.user
+            data.save()
+            return redirect("poolhost:index")
+        else:
+            print(form.errors)
+            return HttpResponse("Error")
+    else:
+        form = Vehicle_Type()
+    return render(request, 'poolhost/vehicletype.html', {'form': form})
+
+
+def vehicletype_update(request, id):
+    instance = VehicleType.objects.get(id=id)
+    form = VehicleType(request.POST or None, instance=instance)
+
+    if form.is_valid():
+        form.save()
+        return redirect("vehicle_list")
+    else:
+        print(form.errors)
+    return render(request, 'vehicle_register.html', {'form': form, 'instance': instance})
+
+
+def delete_vehicletype(request, id):
+    vehicle_register.objects.get(id=id).delete()
+    return redirect("vehicle_list")

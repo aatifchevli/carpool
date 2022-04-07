@@ -1,8 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from poolhost import *
-from poolhost.models import vehicle_register
-from siteadmin.models import Vehicle_Type
+from poolhost.models import vehicle_register, VehicleType
 from accounts.models import User
 from accounts.forms import *
 from .forms import UserRegisterForm
